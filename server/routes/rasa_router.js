@@ -101,7 +101,7 @@ function trainRasaNlu(req, res, next) {
   logger.winston.info("Rasa NLU Train Request -> " + global.rasa_endpoint + "/model/train");
   try {
     checkDirectoryExists(model.file_path + model.file_name);
-    var stream = request({ method: "POST", uri: global.rasa_endpoint + "/model/train", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(req.body) }, function (error, response, body) {
+    var stream = request({ method: "POST", uri: global.rasa_endpoint + "/model/train", headers: { 'Content-Type': 'application/x-yaml' }, body: req.body.data }, function (error, response, body) {
       if (error) {
         logger.winston.error("Error Occured when posting data to nlu endpoint. " + error);
         sendOutput(500, res, '{"error" : ' + error + '}');

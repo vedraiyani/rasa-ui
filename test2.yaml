@@ -1,0 +1,17 @@
+nlu:
+  - intent: greeting - Hello - Hi
+slots: null
+entities: null
+intents:
+  - greeting
+responses:
+  utter_greet:
+    - text: Welcome
+actions:
+  - utter_greet
+stories:
+  - story: init
+    steps:
+      - intent: greeting
+      - action: utter_greet
+polices: null

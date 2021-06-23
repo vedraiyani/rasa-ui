@@ -1,4 +1,6 @@
-angular.module('app').controller('TrainingController', TrainingController);
+angular.module('app').controller('TrainingController', ["$scope", "$rootScope", "$interval", "$http", "Rasa_Status", "Bot", "BotRegex", "ExpressionParameters", "IntentExpressions", "BotEntities", "BotActions", "BotSynonyms", "SynonymsVariants", "appConfig", "Stories", "Response", "Actions", "yaml", TrainingController]);
+
+// TrainingController.$inject = ["$scope", "$rootScope", "$interval", "$http", "Rasa_Status", "Bot", "BotRegex", "ExpressionParameters", "IntentExpressions", "BotEntities", "BotActions", "BotSynonyms", "SynonymsVariants", "appConfig", "Stories", "Response", "Actions", "yaml", TrainingController]
 
 function TrainingController($scope, $rootScope, $interval, $http, Rasa_Status, Bot, BotRegex, ExpressionParameters, IntentExpressions, BotEntities, BotActions, BotSynonyms, SynonymsVariants, appConfig, Stories, Response, Actions, yaml) {
   $scope.generateError = '';
@@ -29,7 +31,13 @@ function TrainingController($scope, $rootScope, $interval, $http, Rasa_Status, B
   }
 
   $scope.stringifyData = function() {
-    console.log(yaml.stringify($scope.raw_data));
+    console.log(yaml.stringify($scope.raw_data, {
+      flowLevel: 3,
+      styles: {
+        '!!int'  : 'hexadecimal',
+        '!!null' : 'camelcase'
+      }
+    }));
     $scope.raw_data_stringified = JSON.stringify($scope.raw_data);
   }
 
